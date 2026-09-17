@@ -8,8 +8,8 @@ class Node:
 
 class DoublyLinkedListStack:
     def __init__(self):
-        self.top: Node | None = None  # Head of the list (top of stack)
-        self.tail: Node | None = None  # Tail of the list (bottom of stack)
+        self.top: Node | None = None  # Top of stack
+        self.tail: Node | None = None  # Bottom of stack
 
     def push(self, data: int):
         """Add a new node to the top of the stack."""
@@ -18,7 +18,7 @@ class DoublyLinkedListStack:
         if self.top is not None:
             self.top.previous = new_node
         else:
-            # If the stack was empty, this node is also the tail
+            # If the stack was empty, this node is the tail
             self.tail = new_node
             
         self.top = new_node
@@ -66,22 +66,18 @@ def test_doubly_linked_stack():
     assert stack.peek() is None, "Empty stack peek should be None"
     
     # Test push and peek
-    stack.push(10)
-    stack.push(20)
-    stack.push(30)
+    stack.push(10); stack.push(20); stack.push(30)
     assert stack.peek() == 30, "Peek should return the top element (30)"
     
-    # Verify visual traversal (both directions)
-    print("--- Forward (Top to Bottom) ---")
+    # Verify it goes in both directions
+    print("Top to Bottom")
     stack.print_forward()  # Should output: 30 -> 20 -> 10
     
-    print("--- Backward (Bottom to Top via .previous) ---")
+    print("Bottom to Top")
     stack.print_backward() # Should output: 10 -> 20 -> 30
     
     # Test pointer consistency manually
-    assert stack.top.data == 30
-    assert stack.top.next.data == 20
-    assert stack.top.next.next.data == 10
+    assert stack.top.data == 30; assert stack.top.next.data == 20; assert stack.top.next.next.data == 10
     
     assert stack.tail.data == 10; assert stack.tail.previous.data == 20; assert stack.tail.previous.previous.data == 30
     
